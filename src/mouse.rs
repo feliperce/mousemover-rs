@@ -15,10 +15,10 @@ impl MouseMover {
     }
 
     pub fn move_to_random_position(&mut self) {
-        let mut rng = rand::thread_rng();
+        let mut rng = rand::rng();
 
-        let x = rng.gen_range(0..1920);
-        let y = rng.gen_range(0..1080);
+        let x = rng.random_range(0..1920);
+        let y = rng.random_range(0..1080);
 
         self.enigo.mouse_move_to(x, y);
     }
