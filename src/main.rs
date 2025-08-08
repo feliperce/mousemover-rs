@@ -5,5 +5,5 @@ fn main() {
     let config = config::Config::new();
     let mut mouse_mover = mouse::MouseMover::new();
 
-    mouse_mover.run(config.delay_ms);
+    mouse_mover.run(config.delay_ms, config.stop_after);
 }
