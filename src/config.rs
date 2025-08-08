@@ -8,12 +8,19 @@ use clap::Parser;
 )]
 pub struct Config {
     #[clap(
-        short, 
-        long, 
-        default_value = "1000", 
+        short,
+        long,
+        default_value = "1000",
         help = "Set the delay between mouse movements in milliseconds"
     )]
     pub delay_ms: u64,
+
+    #[clap(
+        short,
+        long,
+        help = "Stops the mouse movement after a specified number of minutes"
+    )]
+    pub stop_after: Option<u64>,
 }
 
 impl Config {

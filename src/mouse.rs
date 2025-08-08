@@ -1,6 +1,6 @@
 use enigo::{Enigo, MouseControllable};
 use rand::Rng;
-use std::time::Duration;
+use std::time::{Duration, Instant};
 use device_query::{DeviceQuery, DeviceState, Keycode};
 
 pub struct MouseMover {
@@ -23,11 +23,20 @@ impl MouseMover {
         self.enigo.mouse_move_to(x, y);
     }
 
-    pub fn run(&mut self, delay_ms: u64) {
+    pub fn run(&mut self, delay_ms: u64, stop_after: Option<u64>) {
         let device_state = DeviceState::new();
         println!("Mouse mover started. Press CTRL + ALT + C to exit.");
 
+        let start_time = Instant::now();
+
         loop {
+            if let Some(minutes) = stop_after {
+                if start_time.elapsed() >= Duration::from_secs(minutes * 60) {
+                    println!("Stopping after {} minutes.", minutes);
+                    break;
+                }
+            }
+
             self.move_to_random_position();
 
             let keys: Vec<Keycode> = device_state.get_keys();
